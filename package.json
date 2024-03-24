@@ -3,16 +3,22 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "migrate:gen": "drizzle-kit generate:pg",
+    "migrate:run": "bun run ./db/migrate.ts",
+    "drizzle-studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
+    "@vercel/postgres": "^0.7.2",
     "autoprefixer": "10.4.15",
+    "drizzle-orm": "^0.30.4",
     "geist": "^1.0.0",
     "next": "latest",
     "openai": "^4.24.1",
     "postcss": "8.4.29",
+    "postgres": "^3.4.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwindcss": "3.3.3",
@@ -22,6 +28,8 @@
     "@types/node": "20.3.1",
     "@types/react": "18.2.8",
     "@types/react-dom": "18.2.5",
-    "encoding": "^0.1.13"
+    "drizzle-kit": "^0.20.14",
+    "encoding": "^0.1.13",
+    "pg": "^8.11.3"
   }
 }
