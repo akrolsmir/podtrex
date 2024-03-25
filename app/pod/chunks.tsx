@@ -1,8 +1,7 @@
 'use client'
 
 import { createRef, useState } from 'react'
-import { getTranscription } from './page'
-import { Chunk } from './utils'
+import { Chunk, getTranscription } from './utils'
 import AudioPlayer from 'react-h5-audio-player'
 import 'react-h5-audio-player/lib/styles.css'
 

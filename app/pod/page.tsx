@@ -1,6 +1,5 @@
 'use server'
 import ShowChunks from './chunks'
-import { chunkify } from './utils'
 
 async function runFastWhisper(url: string) {
   const response = await fetch('https://api.replicate.com/v1/predictions', {
@@ -25,23 +24,6 @@ async function runFastWhisper(url: string) {
   // Note: json doesn't have the transcription yet; json.urls.get will produce it
   console.log(json)
   return json
-}
-
-export async function getTranscription(url: string) {
-  // Run on the server to be able to use the API token?
-  'use server'
-  const response = await fetch(url, {
-    headers: {
-      Authorization: `Token ${process.env.REPLICATE_API_TOKEN}`,
-      'Content-Type': 'application/json',
-    },
-    method: 'GET',
-  })
-  const json = await response.json()
-  console.log(json.output.slice(0, 100))
-
-  const chunks = chunkify(json.output)
-  return { chunks, text: '' }
 }
 
 export default async function Pod() {
