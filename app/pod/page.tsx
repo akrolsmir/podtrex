@@ -59,18 +59,17 @@ export default async function Pod() {
     'https://bzdopflomdrflbctxbmo.supabase.co/storage/v1/object/public/audio/money-in-fiction-podcast-verytrim.mp3'
   return (
     <div className="max-w-2xl w-full">
-      <h2 className="text-2xl font-bold">Podtrex</h2>
-      <div className="h-4" />
-      <form action={postPod} className="flex flex-col gap-4">
+      <h2 className="my-6 text-2xl font-bold">Podtrex</h2>
+      <form action={postPod} className="flex flex-row gap-4">
         <input
           type="text"
           name="mp3"
           defaultValue={DEFAULT_PODCAST}
-          className="p-4"
+          className="p-4 flex-grow"
         />
         <input
           type="submit"
-          value="Submit"
+          value="Transcribe"
           className="p-4 bg-green-100 rounded-md hover:bg-green-200 hover:cursor-pointer"
         />
       </form>
