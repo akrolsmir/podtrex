@@ -1,5 +1,6 @@
 'use server'
 import ShowChunks from './chunks'
+import { chunkify } from './utils'
 
 async function runFastWhisper(url: string) {
   const response = await fetch('https://api.replicate.com/v1/predictions', {
@@ -14,6 +15,9 @@ async function runFastWhisper(url: string) {
       input: {
         audio: url,
         batch_size: 64,
+        timestamp: 'word', // needed for diarisations
+        diarise_audio: true,
+        hf_token: process.env.HUGGING_FACE_TOKEN,
       },
     }),
   })
@@ -24,6 +28,8 @@ async function runFastWhisper(url: string) {
 }
 
 export async function getTranscription(url: string) {
+  // Run on the server to be able to use the API token?
+  'use server'
   const response = await fetch(url, {
     headers: {
       Authorization: `Token ${process.env.REPLICATE_API_TOKEN}`,
@@ -32,8 +38,10 @@ export async function getTranscription(url: string) {
     method: 'GET',
   })
   const json = await response.json()
-  const { chunks, text } = json.output
-  return { chunks, text }
+  console.log(json.output.slice(0, 100))
+
+  const chunks = chunkify(json.output)
+  return { chunks, text: '' }
 }
 
 export default async function Pod() {
@@ -57,7 +65,7 @@ export default async function Pod() {
         <input
           type="text"
           name="mp3"
-          defaultValue={PODCAST_VERY_TRIM}
+          defaultValue={DEFAULT_PODCAST}
           className="p-4"
         />
         <input
